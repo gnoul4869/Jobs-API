@@ -3,9 +3,10 @@ const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const { AuthenticationError } = require('../errors');
 
-const auth = async (res, req, next) => {
+const auth = async (req, res, next) => {
     const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+
+    if (!authHeader || !authHeader.startsWith('Bearer')) {
         throw new AuthenticationError('Invalid authentication');
     }
 
