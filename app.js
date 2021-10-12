@@ -8,9 +8,9 @@ const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 
 //* Swagger UI
-const swagger = require('swagger-ui-express');
-const yaml = require('yamljs');
-const swaggerDoc = yaml.load('./views/swagger.yaml');
+// const swagger = require('swagger-ui-express');
+// const yaml = require('yamljs');
+// const swaggerDoc = yaml.load('./views/swagger.yaml');
 
 //* Express.js
 const express = require('express');
@@ -40,11 +40,11 @@ app.use(cors());
 app.use(xss());
 
 //* routes
-// app.get('/', (req, res) => {
-//     res.send('Jobs API');
-// });
+app.get('/', (req, res) => {
+    res.send('Jobs API');
+});
 
-app.use('/', swagger.serve, swagger.setup(swaggerDoc));
+// app.use('/', swagger.serve, swagger.setup(swaggerDoc));
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authenticateUser, jobsRouter);
