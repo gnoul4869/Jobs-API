@@ -1,5 +1,6 @@
 // const { CustomAPIError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
+const { custom } = require('joi');
 
 const errorHandlerMiddleware = (err, req, res, next) => {
     let customError = {
@@ -22,6 +23,11 @@ const errorHandlerMiddleware = (err, req, res, next) => {
         customError.msg = `Duplicate value for ${Object.keys(
             err.keyValue
         )} field`;
+    }
+
+    if (err.name === 'CastError') {
+        customError.statusCode = StatusCodes.NOT_FOUND;
+        customError.msg = `No item found with id ${err.value}`;
     }
 
     // return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err });
