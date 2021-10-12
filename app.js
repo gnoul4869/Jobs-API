@@ -40,11 +40,11 @@ app.use(cors());
 app.use(xss());
 
 //* Routes
-// app.get('/', (req, res) => {
-//     res.send('Jobs API');
-// });
+app.get('/', (req, res) => {
+    res.send('<h1>Jobs API</h1><a href="./api-docs">API Docs</a>');
+});
 
-app.use('/', swagger.serve, swagger.setup(swaggerDoc));
+app.use('/api-docs', swagger.serve, swagger.setup(swaggerDoc));
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authenticateUser, jobsRouter);
